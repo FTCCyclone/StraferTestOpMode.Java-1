@@ -108,10 +108,20 @@ public class StraferTestOpMode extends LinearOpMode {
 //             rightPower = -gamepad1.right_stick_y ;
 
             // Send calculated power to wheels
-            frontLeft.setPower(-0.2);
-            frontRight.setPower(0.2);
-            backLeft.setPower(0.2);
-            backRight.setPower(-0.2);
+            double y = -gamepad1.left_stick_y;
+            double x = gamepad1.left_stick_x * 1.1;
+            double rx = gamepad1.right_stick_x;
+
+            double factor = 0.35;
+            double frontLeftPower = (y + x + rx) * factor;
+            double frontRightPower = (y - x - rx) * factor;
+            double backLeftPower = (y - x + rx) * factor;
+            double backRightPower = (y + x - rx) * factor;
+
+            frontLeft.setPower(frontLeftPower);
+            frontRight.setPower(frontRightPower);
+            backLeft.setPower(backLeftPower);
+            backRight.setPower(backRightPower);
 
 
             // Show the elapsed game time and wheel power.
